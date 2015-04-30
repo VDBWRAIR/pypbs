@@ -1,5 +1,5 @@
 import xml.etree.ElementTree as ET
-import unittest
+from . import unittest
 from os.path import *
 
 import mock

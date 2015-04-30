@@ -1,4 +1,3 @@
-from subprocess import check_output
 from collections import OrderedDict
 import re
 
