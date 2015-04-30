@@ -1,4 +1,3 @@
-from collections import OrderedDict
 import re
 
 def parse_xml(nodes_xml):
@@ -6,7 +5,7 @@ def parse_xml(nodes_xml):
     Parse pbsnodes -x xml output
 
     :param xml.etree.ElementTree.Element nodes_xml: etree xml from pbsnodes -x
-    :return: OrderedDict of {nodename: {attr1:val,}}
+    :return: dict of {nodename: {attr1:val,}}
     '''
     nodes = {}
     for node in nodes_xml:
@@ -19,7 +18,7 @@ def parse_xml(nodes_xml):
 def parse_list_string(string):
     '''
     Parse out any list like string that is separated by comma
-    If individual list items have key=value, convert to OrderedDict
+    If individual list items have key=value, convert to dict
     If there are no commas then just return original string
     '''
     parts = re.split('(?<=[\w\)=]),(?=\w)',string)
@@ -50,6 +49,5 @@ def parse_list_string(string):
         defs = re.findall('(?:(\w)\((.*?)\))', values)
         for _key, d in defs:
             subdict[key][_key] = parse_list_string(d)
-        print subdict
     _dict.update(subdict)
     return _dict

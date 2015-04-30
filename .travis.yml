@@ -13,6 +13,6 @@ before_script:
     - export PATH=$PATH:$PWD/bin
 script: 
     - nosetests --with-coverage --cover-erase --cover-package=pypbs
-    - pybot tests/robot.txt
+    #- pybot tests/robot.txt
 after_success:
     - coveralls
