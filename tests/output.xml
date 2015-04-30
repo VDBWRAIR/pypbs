@@ -1,0 +1,52 @@
+<Data>
+ <Node>
+  <name>host1.example.com</name>
+  <state>job-exclusive</state>
+  <power_state>Running</power_state>
+  <np>4</np>
+  <properties>foo</properties>
+  <ntype>cluster</ntype>
+  <jobs>0-3/850.host1.example.com</jobs>
+  <status>rectime=1430334904,macaddr=00:00:00:00:00:01,cpuclock=OnDemand:3101MHz,varattr=,jobs=850.host1.example.com(cput=784772,energy_used=0,mem=14430256kb,vmem=17894448kb,walltime=197090,session_id=31371),state=free,netload=882332517211,gres=,loadave=13.90,ncpus=8,physmem=16238260kb,availmem=23859820kb,totmem=24430252kb,idletime=643,nusers=1,nsessions=1,sessions=31371,uname=Linux host1.example.com 2.6.32-431.20.3.el6.x86_64 #1 SMP Fri Jun 6 18:30:54 EDT 2014 x86_64,opsys=linux</status>
+  <mom_service_port>15002</mom_service_port>
+  <mom_manager_port>15003</mom_manager_port>
+ </Node>
+ <Node>
+  <name>host2.example.com</name>
+  <state>job-exclusive</state>
+  <power_state>Running</power_state>
+  <np>4</np>
+  <properties>foo</properties>
+  <ntype>cluster</ntype>
+  <jobs>0-3/849.host1.example.com</jobs>
+  <status>rectime=1430334882,macaddr=00:00:00:00:00:02,cpuclock=OnDemand:3101MHz,varattr=,jobs=849.host1.example.com(cput=792779,energy_used=0,mem=14555836kb,vmem=17890828kb,walltime=199465,session_id=21651),state=free,netload=2748428088074,gres=,loadave=20.01,ncpus=8,physmem=16238260kb,availmem=23621396kb,totmem=24430252kb,idletime=436938,nusers=1,nsessions=1,sessions=21651,uname=Linux host2.example.com 2.6.32-431.20.3.el6.x86_64 #1 SMP Fri Jun 6 18:30:54 EDT 2014 x86_64,opsys=linux</status>
+  <mom_service_port>15002</mom_service_port>
+  <mom_manager_port>15003</mom_manager_port>
+ </Node>
+ <Node>
+  <name>host3.example.com</name>
+  <state>free</state>
+  <power_state>Running</power_state>
+  <np>12</np>
+  <properties>bigmem,tesla</properties>
+  <ntype>cluster</ntype>
+  <jobs>5/656.host1.example.com,9/812.host1.example.com,0/851.host1.example.com,1/855.host1.example.com,2/864.host1.example.com,3/865.host1.example.com,4/866.host1.example.com,7/868.host1.example.com,6/870.host1.example.com,10/892.host1.example.com,8/978.host1.example.com</jobs>
+  <status>rectime=1430334888,macaddr=00:00:00:00:00:03,cpuclock=OnDemand:2301MHz,varattr=,jobs=656.host1.example.com(cput=704205,energy_used=0,mem=663876kb,vmem=290383028kb,walltime=1143760,session_id=2600) 812.host1.example.com(cput=466890,energy_used=0,mem=851568kb,vmem=286089568kb,walltime=513972,session_id=31317) 851.host1.example.com(cput=171210,energy_used=0,mem=856996kb,vmem=290125588kb,walltime=171501,session_id=17897) 855.host1.example.com(cput=169197,energy_used=0,mem=530380kb,vmem=290383028kb,walltime=169460,session_id=18106) 864.host1.example.com(cput=107891,energy_used=0,mem=941696kb,vmem=290326052kb,walltime=108039,session_id=1350) 865.host1.example.com(cput=107606,energy_used=0,mem=832564kb,vmem=290193180kb,walltime=107777,session_id=1421) 866.host1.example.com(cput=107372,energy_used=0,mem=916400kb,vmem=290324252kb,walltime=107567,session_id=1494) 868.host1.example.com(cput=106830,energy_used=0,mem=830340kb,vmem=290060052kb,walltime=107005,session_id=1830) 870.host1.example.com(cput=106174,energy_used=0,mem=843748kb,vmem=290125588kb,walltime=106340,session_id=2372) 892.host1.example.com(cput=95790,energy_used=0,mem=836868kb,vmem=286180260kb,walltime=95935,session_id=5514) 978.host1.example.com(cput=7449,energy_used=0,mem=846060kb,vmem=290060052kb,walltime=7463,session_id=25749),state=free,netload=622455994750,gres=,loadave=17.77,ncpus=24,physmem=264455068kb,availmem=260210680kb,totmem=272647060kb,idletime=102260,nusers=1,nsessions=11,sessions=25749 5514 2372 1830 1494 1421 1350 18106 17897 31317 2600,uname=Linux host3.example.com 2.6.32-431.20.3.el6.x86_64 #1 SMP Fri Jun 6 18:30:54 EDT 2014 x86_64,opsys=linux</status>
+  <mom_service_port>15002</mom_service_port>
+  <mom_manager_port>15003</mom_manager_port>
+  <gpus>2</gpus>
+ </Node>
+ <Node>
+  <name>host4.example.com</name>
+  <state>job-exclusive</state>
+  <power_state>Running</power_state>
+  <np>12</np>
+  <properties>foo</properties>
+  <ntype>cluster</ntype>
+  <jobs>4-7/982.host1.example.com,8-11/981.host1.example.com,0-3/1053.host1.example.com</jobs>
+  <status>rectime=1430334888,macaddr=00:00:00:00:00:04,cpuclock=Fixed,varattr=,jobs=982.host1.example.com(cput=14481,energy_used=0,mem=50914352kb,vmem=57907264kb,walltime=4730,session_id=18121) 981.host1.example.com(cput=13775,energy_used=0,mem=60872436kb,vmem=68076300kb,walltime=4730,session_id=18130) 1053.host1.example.com(cput=10121,energy_used=0,mem=60806896kb,vmem=70264832kb,walltime=2864,session_id=19554),state=free,netload=426812805469,gres=,loadave=12.92,ncpus=24,physmem=82503036kb,availmem=84492076kb,totmem=90695032kb,idletime=2343472,nusers=1,nsessions=3,sessions=19554 18130 18121,uname=Linux host4.example.com 2.6.32-504.8.1.el6.x86_64 #1 SMP Fri Dec 19 12:09:25 EST 2014 x86_64,opsys=linux</status>
+  <mom_service_port>15002</mom_service_port>
+  <mom_manager_port>15003</mom_manager_port>
+  <gpus>1</gpus>
+ </Node>
+</Data>
