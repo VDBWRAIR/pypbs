@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
+
 import xml.etree.ElementTree as ET
 import re
 
@@ -103,8 +105,22 @@ def parse_job_string(job_str):
 
     return job
 
+def cluster_status(cluster_info):
+    '''
+    Return a formatted string that should display cluster status nicely
+
+    :param dict cluster_info: dict of cluster information
+    '''
+    template = 'NP Utilization\tCluster Load\tAvail CPU\tUsed CPU\tTotal CPU\tRunning Jobs\n'
+    template += '{np_utilization:14.2%}\t{load_utilization:12.2%}\t{avail_np:9}\t{used_np:8}\t{total_np:9}\t{running_jobs:12}'
+    return template.format(
+        **cluster_info
+    )
+
 def main():
     xml = get_pbsnodes_xml()
     nodes = nodesxml.parse_xml(xml)
-    import pprint
-    pprint.pprint(nodes)
+    #import pprint
+    #pprint.pprint(nodes)
+    cinfo = cluster_info(nodes)
+    print(cluster_status(cinfo))

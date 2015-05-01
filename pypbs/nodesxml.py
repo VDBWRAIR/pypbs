@@ -12,6 +12,10 @@ def parse_xml(nodes_xml):
         tdict = {}
         for attrib in node:
             tdict[attrib.tag] = parse_list_string(attrib.text)
+        if 'jobs' not in tdict:
+            tdict['jobs'] = []
+        elif isinstance(tdict['jobs'],str):
+            tdict['jobs'] = [tdict['jobs']]
         nodes[tdict['name']] = tdict
     return nodes
 
@@ -42,11 +46,11 @@ def parse_list_string(string):
 
     # Now do another search for subdict patterns
     subdict = {}
-    p = '(\w+)=((?:\w\(\S+\)\s{0,1})+)'
+    p = '(\w+)=([\w\d\.]+\(.*?\)(?: \S+\(.*?\)){0,})'
     stuff = re.findall(p, string)
     for key, values in stuff:
         subdict[key] = {}
-        defs = re.findall('(?:(\w)\((.*?)\))', values)
+        defs = re.findall('(?:(\S+)\((.*?)\))', values)
         for _key, d in defs:
             subdict[key][_key] = parse_list_string(d)
     _dict.update(subdict)
