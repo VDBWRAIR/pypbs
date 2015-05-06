@@ -24,6 +24,9 @@ def parse_list_string(string):
     Parse out any list like string that is separated by comma
     If individual list items have key=value, convert to dict
     If there are no commas then just return original string
+
+    :param str string: list like string
+    :return: list or dict depending on input string
     '''
     parts = re.split('(?<=[\w\)=]),(?=\w)',string)
     # Return original string

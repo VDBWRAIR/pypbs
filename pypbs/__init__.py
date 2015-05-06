@@ -1,4 +1,4 @@
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 __release__ = __version__ + '-dev'
 __authors__ = 'Tyghe Vallard, Michael panciera'
 __authoremails__ = 'vallardt@gmail.com, michael.panciera.work@gmail.com'
