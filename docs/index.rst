@@ -9,8 +9,9 @@ Welcome to pypbs's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
+    api/modules
 
 Indices and tables
 ==================
