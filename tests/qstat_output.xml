@@ -16,7 +16,7 @@
   <Checkpoint>u</Checkpoint>
   <ctime>1430847059</ctime>
   <Error_Path>host.example.com:/tmp/job1.e1</Error_Path>
-  <exec_host>host.example.com/2</exec_host>
+  <exec_host>host.example.com/0,2-4</exec_host>
   <Hold_Types>n</Hold_Types>
   <Join_Path>n</Join_Path>
   <Keep_Files>n</Keep_Files>

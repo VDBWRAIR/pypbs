@@ -13,3 +13,9 @@ def make_node_info(**kwargs):
             },
             'jobs': kwargs.get('jobs',[])
     }
+
+def make_job_info(**kwargs):
+    return {
+        'Job_Id': kwargs.get('Job_Id','foo'),
+        'exec_host': kwargs.get('exec_host','host.example.com/0,2-4')
+    }

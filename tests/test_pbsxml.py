@@ -55,6 +55,12 @@ class TestParsePbspbsxml(unittest.TestCase):
             self.jobs['1.host.example.com']['resources_used']['cput']
         )
 
+    def test_parses_exec_host_property(self):
+        self.assertEqual(
+            'host.example.com/0,2-4',
+            self.jobs['1.host.example.com']['exec_host']
+        )
+
 class TestParseListString(unittest.TestCase):
     def test_returns_original_string(self):
         self.assertEqual('foo', pbsxml.parse_list_string('foo'))

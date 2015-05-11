@@ -30,6 +30,9 @@ def parse_sub_xml(xmltree):
             tdict[attrib.tag] = parse_sub_xml(attrib)
         elif attrib.tag == 'jobs':
             tdict[attrib.tag] = parse_job_list(text)
+        elif '/' in text:
+            # Don't mess with things that have '/' in them
+            tdict[attrib.tag] = text
         else:
             tdict[attrib.tag] = parse_list_string(text)
     return tdict

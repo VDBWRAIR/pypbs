@@ -13,7 +13,8 @@ setup(
     keywords = pypbs.__keywords__,
     entry_points = {
         'console_scripts': [
-            'pbsstatus = pypbs.pbsstatus:main'
+            'pbsstatus = pypbs.pbsstatus:main',
+            'qpeek = pypbs.qpeek:main',
         ],
     },
 )
