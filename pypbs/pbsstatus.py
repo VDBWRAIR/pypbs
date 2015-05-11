@@ -50,13 +50,16 @@ def cluster_info(nodes_info):
     }
     ncpus = 0
     for nodename, nodeinfo in nodes_info.items():
-        jobs = nodeinfo['jobs']
+        if 'jobs' in nodeinfo:
+            jobs = nodeinfo['jobs']
+        else:
+            jobs = []
         np = int(nodeinfo['np'])
         ncpus += int(nodeinfo['status']['ncpus'])
         loadave = float(nodeinfo['status']['loadave'])
         cluster_info['total_np'] += np
         cluster_info['load_utilization'] += loadave
-        for job in nodeinfo['jobs']:
+        for job in jobs:
             _job = parse_job_string(job)
             cluster_info['running_jobs'] += 1
             cluster_info['used_np'] += _job['ncpus']

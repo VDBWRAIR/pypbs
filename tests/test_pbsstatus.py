@@ -34,6 +34,10 @@ class TestClusterStatus(unittest.TestCase):
             'bar': make_node_info()
         }
 
+    def test_has_no_jobs(self):
+        del self.nodes_info['foo']['jobs']
+        r = pbsstatus.cluster_info(self.nodes_info)
+
     def test_does_load_utilization_gt_1(self):
         self.nodes_info['foo']['status']['ncpus'] = '20'
         self.nodes_info['foo']['status']['loadave'] = '40.0'

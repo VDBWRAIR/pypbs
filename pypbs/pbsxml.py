@@ -1,26 +1,38 @@
 import re
 
-def parse_xml(nodes_xml):
+def parse_xml(xmltree, index_tag):
     '''
-    Parse pbsnodes -x xml output
+    Parse -x xml output for various commands
 
-    :param xml.etree.ElementTree.Element nodes_xml: etree xml from pbsnodes -x
+    :param xml.etree.ElementTree.Element xmltree: etree xml from pbsnodes -x
+    :param str index_tag: tag to index dictionary elements by
     :return: dict of {nodename: {attr1:val,}}
     '''
     nodes = {}
-    for node in nodes_xml:
-        tdict = {}
-        for attrib in node:
-            if attrib.tag == 'jobs':
-                tdict[attrib.tag] = parse_job_list(attrib.text)
-            else:
-                tdict[attrib.tag] = parse_list_string(attrib.text)
-        if 'jobs' not in tdict:
-            tdict['jobs'] = []
-        elif isinstance(tdict['jobs'],str):
+    for node in xmltree:
+        tdict = parse_sub_xml(node)
+        if 'jobs' in tdict and isinstance(tdict['jobs'],str):
             tdict['jobs'] = [tdict['jobs']]
-        nodes[tdict['name']] = tdict
+        if index_tag:
+            nodes[tdict[index_tag]] = tdict
     return nodes
+
+def parse_sub_xml(xmltree):
+    '''
+    Return dictionary for xml tree
+    '''
+    tdict = {}
+    for attrib in xmltree:
+        text = attrib.text
+        if text:
+            text = attrib.text.strip()
+        if not text:
+            tdict[attrib.tag] = parse_sub_xml(attrib)
+        elif attrib.tag == 'jobs':
+            tdict[attrib.tag] = parse_job_list(text)
+        else:
+            tdict[attrib.tag] = parse_list_string(text)
+    return tdict
 
 def parse_list_string(string):
     '''
