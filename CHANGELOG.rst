@@ -9,6 +9,7 @@ Version 0.2.0
   0,2-4,7/1.host.example.com
 * Moved code around to be more general for xml parsing
 * Now parses job xml from qstat -x
+* Moved code around for calling pbs commands and getting xml output
 
 Version 0.1
 -------------

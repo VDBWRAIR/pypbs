@@ -1,5 +1,8 @@
 import re
 
+import sh
+import xml.etree.ElementTree as ET
+
 def parse_host(hoststring):
     '''
     Parse any host type line such as exec_host, submit_host
@@ -35,3 +38,28 @@ def parse_rangestring(rangestring):
         else:
             _range.append(int(part))
     return _range
+
+def pbs_xml_command(command, *args, **kwargs):
+    '''
+    Wrapper on pbs commands that can do -x to return xml output
+    
+    :param str command: any command but best for pbsnodes and qstat or others
+                        that can do -x to return xml output
+    :return: xml.etree.ElementTree
+    '''
+    # Ensure x flag
+    kwargs['x'] = True
+    xmlstr = pbs_command(command, *args, **kwargs)
+    return ET.fromstring(str(xmlstr))
+
+def pbs_command(command, *args, **kwargs):
+    '''
+    Simple wrapper to run pbs commands
+
+    args and kwargs are passed on to sh.command
+
+    :param str command: any command to run
+    :return: output from command
+    '''
+    cmd = getattr(sh, command)
+    return cmd(*args, **kwargs)

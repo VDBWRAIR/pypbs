@@ -17,12 +17,7 @@ def get_pbsnodes_xml(nodes=[]):
 
     :param list nodes: list of nodes to retrieve info for 
     '''
-    cmd = '-x'
-    if nodes:
-        cmd += ' ' + ' '.join(nodes)
-    xml = sh.pbsnodes(cmd)
-    root = ET.fromstring(str(xml))
-    return root
+    return util.pbs_xml_command('pbsnodes', *nodes)
 
 def cluster_info(nodes_info):
     '''

@@ -7,25 +7,26 @@ from pypbs import pbsstatus
 
 class TestGetPbsnodesXML(unittest.TestCase):
     def setUp(self):
-        self.patcher = mock.patch('pypbs.pbsstatus.sh')
-        self.mock_sh = self.patcher.start()
+        self.patcher = mock.patch('pypbs.pbsstatus.util.pbs_command')
+        self.mock_pbs_command = self.patcher.start()
         self.addCleanup(self.patcher.stop)
 
     def test_gets_xml_tree(self):
-        self.mock_sh.pbsnodes.return_value = '<Data></Data>'
+        self.mock_pbs_command.return_value = '<Data></Data>'
         r = pbsstatus.get_pbsnodes_xml()
         self.assertTrue('Data', r.tag)
 
     def test_calls_pbsnodes_correct_with_arguments(self):
-        self.mock_sh.pbsnodes.return_value = '<Data></Data>'
+        self.mock_pbs_command.return_value = '<Data></Data>'
         r = pbsstatus.get_pbsnodes_xml(['foo','bar'])
-        self.mock_sh.pbsnodes.assert_called_once_with('-x foo bar')
-
+        self.mock_pbs_command.assert_called_once_with(
+            'pbsnodes', 'foo', 'bar', x=True
+        )
 
     def test_calls_pbsnodes_correct_with_no_arguments(self):
-        self.mock_sh.pbsnodes.return_value = '<Data></Data>'
+        self.mock_pbs_command.return_value = '<Data></Data>'
         r = pbsstatus.get_pbsnodes_xml()
-        self.mock_sh.pbsnodes.assert_called_once_with('-x')
+        self.mock_pbs_command.assert_called_once_with('pbsnodes', x=True)
 
 class TestClusterStatus(unittest.TestCase):
     def setUp(self):
