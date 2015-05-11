@@ -71,4 +71,4 @@ def parse_job_list(joblist):
     :return: list of separated jobs
     '''
     jobs = re.split('(?<=[a-zA-Z]),(?=\d)', joblist)
-    return filter(lambda x: x != '', jobs)
+    return list(filter(lambda x: x != '', jobs))
