@@ -7,7 +7,9 @@ import re
 
 import sh
 
-from . import pbsxml
+from . import (
+    pbsxml, util
+)
 
 def get_pbsnodes_xml(nodes=[]):
     '''
@@ -96,15 +98,9 @@ def parse_job_string(job_str):
     job['jobid'] = int(jobid)
     job['submit_host'] = submithost
 
-    cpus = cpus.split(',')
-    for cpu in cpus:
-        if '-' in cpu:
-            s,e = cpu.split('-')
-            for i in range(int(s),int(e)+1):
-                job['cpus'].append(i)
-        else:
-            job['cpus'].append(int(cpu))
-    job['ncpus'] = len(job['cpus'])
+    cpus = util.parse_rangestring(cpus)
+    job['ncpus'] = len(cpus)
+    job['cpus'] = cpus
 
     return job
 
