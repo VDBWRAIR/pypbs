@@ -46,7 +46,6 @@ class TestParsePbspbsxml(unittest.TestCase):
         )
 
     def test_parses_job_xml(self):
-        print self.jobs
         self.assertEqual(
             '1.host.example.com',
             self.jobs['1.host.example.com']['Job_Id']
