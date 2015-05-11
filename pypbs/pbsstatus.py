@@ -118,8 +118,8 @@ def cluster_status(cluster_info):
 
 def main():
     xml = get_pbsnodes_xml()
-    nodes = pbsxml.parse_xml(xml)
-    import pprint
-    pprint.pprint(nodes)
+    nodes = pbsxml.parse_xml(xml,'name')
+    #import pprint
+    #pprint.pprint(nodes)
     cinfo = cluster_info(nodes)
     print(cluster_status(cinfo))
