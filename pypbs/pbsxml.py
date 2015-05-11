@@ -11,7 +11,10 @@ def parse_xml(nodes_xml):
     for node in nodes_xml:
         tdict = {}
         for attrib in node:
-            tdict[attrib.tag] = parse_list_string(attrib.text)
+            if attrib.tag == 'jobs':
+                tdict[attrib.tag] = parse_job_list(attrib.text)
+            else:
+                tdict[attrib.tag] = parse_list_string(attrib.text)
         if 'jobs' not in tdict:
             tdict['jobs'] = []
         elif isinstance(tdict['jobs'],str):
@@ -28,6 +31,7 @@ def parse_list_string(string):
     :param str string: list like string
     :return: list or dict depending on input string
     '''
+    # Splits on comma if word or equal sign on the left and word on the right
     parts = re.split('(?<=[\w\)=]),(?=\w)',string)
     # Return original string
     if len(parts) == 1:
@@ -58,3 +62,13 @@ def parse_list_string(string):
             subdict[key][_key] = parse_list_string(d)
     _dict.update(subdict)
     return _dict
+
+def parse_job_list(joblist):
+    '''
+    Parses a joblist
+
+    :param str joblist: string of jobs
+    :return: list of separated jobs
+    '''
+    jobs = re.split('(?<=[a-zA-Z]),(?=\d)', joblist)
+    return filter(lambda x: x != '', jobs)

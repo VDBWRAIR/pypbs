@@ -7,7 +7,7 @@ import re
 
 import sh
 
-from . import nodesxml
+from . import pbsxml
 
 def get_pbsnodes_xml(nodes=[]):
     '''
@@ -26,7 +26,7 @@ def cluster_info(nodes_info):
     '''
     Get cluster status dictionary for all nodes
     in nodes_info.
-    nodes_info needs to be information from nodesxml.parse_xml
+    nodes_info needs to be information from pbsxml.parse_xml
     Cluster status will return the status of the cluster as a dictionary
     with the following keys:
 
@@ -37,7 +37,7 @@ def cluster_info(nodes_info):
         * avail_np - total - used
         * running_jobs - number of jobs running
 
-    :param dict nodes_info: nodesxml.parse_xml output for nodes
+    :param dict nodes_info: pbsxml.parse_xml output for nodes
     :return: dict of cluster utilization values
     '''
     cluster_info = {
@@ -119,8 +119,8 @@ def cluster_status(cluster_info):
 
 def main():
     xml = get_pbsnodes_xml()
-    nodes = nodesxml.parse_xml(xml)
-    #import pprint
-    #pprint.pprint(nodes)
+    nodes = pbsxml.parse_xml(xml)
+    import pprint
+    pprint.pprint(nodes)
     cinfo = cluster_info(nodes)
     print(cluster_status(cinfo))

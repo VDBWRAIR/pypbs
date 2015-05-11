@@ -68,7 +68,7 @@
   <np>12</np>
   <properties>bigmem,tesla</properties>
   <ntype>cluster</ntype>
-  <jobs>0/1.host1.example.com</jobs>
+  <jobs>0,2-4/1.host1.example.com</jobs>
   <status>rectime=1430334888,macaddr=00:00:00:00:00:03,cpuclock=OnDemand:2301MHz,varattr=,jobs=,state=free,netload=622455994750,gres=,loadave=17.77,ncpus=24,physmem=264455068kb,availmem=260210680kb,totmem=272647060kb,idletime=102260,nusers=1,nsessions=11,sessions=25749 5514 2372 1830 1494 1421 1350 18106 17897 31317 2600,uname=Linux host6.example.com 2.6.32-431.20.3.el6.x86_64 #1 SMP Fri Jun 6 18:30:54 EDT 2014 x86_64,opsys=linux</status>
   <mom_service_port>15002</mom_service_port>
   <mom_manager_port>15003</mom_manager_port>
