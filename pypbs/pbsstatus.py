@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 from __future__ import print_function
 
 import xml.etree.ElementTree as ET
@@ -15,6 +13,13 @@ def get_pbsnodes_xml(nodes=[]):
     '''
     Return xml parsed pbsnodes -x
 
+    .. code-block:: python
+
+        >>> from pypbs import get_pbsnodes_xml
+        >>> xml = get_pbsnodes_xml()
+        >>> xml.Tag
+        'Data'
+
     :param list nodes: list of nodes to retrieve info for 
     '''
     return util.pbs_xml_command('pbsnodes', *nodes)
@@ -25,7 +30,8 @@ def cluster_info(nodes_info):
     in nodes_info.
     nodes_info needs to be information from pbsxml.parse_xml
     Cluster status will return the status of the cluster as a dictionary
-    with the following keys:
+
+    Dictionary will contain the following keys:
 
         * np_utilization - used np / total np as a (float <= 1)
         * load_utilization - load ave / total ncpus (float)

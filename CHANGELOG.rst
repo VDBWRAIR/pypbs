@@ -11,6 +11,7 @@ Version 0.2.0
 * Now parses job xml from qstat -x
 * Moved code around for calling pbs commands and getting xml output
 * Added qpeek command
+* Added documentation
 
 Version 0.1
 -------------

@@ -1,0 +1,5 @@
+============
+API Examples
+============
+
+.. automodule:: pypbs

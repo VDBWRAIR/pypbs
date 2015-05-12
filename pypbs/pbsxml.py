@@ -6,7 +6,7 @@ def parse_xml(xmltree, index_tag):
 
     :param xml.etree.ElementTree.Element xmltree: etree xml from pbsnodes -x
     :param str index_tag: tag to index dictionary elements by
-    :return: dict of {nodename: {attr1:val,}}
+    :return: dict of {index_tag: {attr1:val,}}
     '''
     nodes = {}
     for node in xmltree:
