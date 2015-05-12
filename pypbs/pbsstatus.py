@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 from __future__ import print_function
 
 import xml.etree.ElementTree as ET
@@ -7,28 +5,33 @@ import re
 
 import sh
 
-from . import nodesxml
+from . import (
+    pbsxml, util
+)
 
 def get_pbsnodes_xml(nodes=[]):
     '''
     Return xml parsed pbsnodes -x
 
+    .. code-block:: python
+
+        >>> from pypbs import get_pbsnodes_xml
+        >>> xml = get_pbsnodes_xml()
+        >>> xml.Tag
+        'Data'
+
     :param list nodes: list of nodes to retrieve info for 
     '''
-    cmd = '-x'
-    if nodes:
-        cmd += ' ' + ' '.join(nodes)
-    xml = sh.pbsnodes(cmd)
-    root = ET.fromstring(str(xml))
-    return root
+    return util.pbs_xml_command('pbsnodes', *nodes)
 
 def cluster_info(nodes_info):
     '''
     Get cluster status dictionary for all nodes
     in nodes_info.
-    nodes_info needs to be information from nodesxml.parse_xml
+    nodes_info needs to be information from pbsxml.parse_xml
     Cluster status will return the status of the cluster as a dictionary
-    with the following keys:
+
+    Dictionary will contain the following keys:
 
         * np_utilization - used np / total np as a (float <= 1)
         * load_utilization - load ave / total ncpus (float)
@@ -37,7 +40,7 @@ def cluster_info(nodes_info):
         * avail_np - total - used
         * running_jobs - number of jobs running
 
-    :param dict nodes_info: nodesxml.parse_xml output for nodes
+    :param dict nodes_info: pbsxml.parse_xml output for nodes
     :return: dict of cluster utilization values
     '''
     cluster_info = {
@@ -50,13 +53,16 @@ def cluster_info(nodes_info):
     }
     ncpus = 0
     for nodename, nodeinfo in nodes_info.items():
-        jobs = nodeinfo['jobs']
+        if 'jobs' in nodeinfo:
+            jobs = nodeinfo['jobs']
+        else:
+            jobs = []
         np = int(nodeinfo['np'])
         ncpus += int(nodeinfo['status']['ncpus'])
         loadave = float(nodeinfo['status']['loadave'])
         cluster_info['total_np'] += np
         cluster_info['load_utilization'] += loadave
-        for job in nodeinfo['jobs']:
+        for job in jobs:
             _job = parse_job_string(job)
             cluster_info['running_jobs'] += 1
             cluster_info['used_np'] += _job['ncpus']
@@ -93,15 +99,9 @@ def parse_job_string(job_str):
     job['jobid'] = int(jobid)
     job['submit_host'] = submithost
 
-    cpus = cpus.split(',')
-    for cpu in cpus:
-        if '-' in cpu:
-            s,e = cpu.split('-')
-            for i in range(int(s),int(e)+1):
-                job['cpus'].append(i)
-        else:
-            job['cpus'].append(int(cpu))
-    job['ncpus'] = len(job['cpus'])
+    cpus = util.parse_rangestring(cpus)
+    job['ncpus'] = len(cpus)
+    job['cpus'] = cpus
 
     return job
 
@@ -119,7 +119,7 @@ def cluster_status(cluster_info):
 
 def main():
     xml = get_pbsnodes_xml()
-    nodes = nodesxml.parse_xml(xml)
+    nodes = pbsxml.parse_xml(xml,'name')
     #import pprint
     #pprint.pprint(nodes)
     cinfo = cluster_info(nodes)

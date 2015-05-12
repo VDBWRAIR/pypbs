@@ -7,25 +7,26 @@ from pypbs import pbsstatus
 
 class TestGetPbsnodesXML(unittest.TestCase):
     def setUp(self):
-        self.patcher = mock.patch('pypbs.pbsstatus.sh')
-        self.mock_sh = self.patcher.start()
+        self.patcher = mock.patch('pypbs.pbsstatus.util.pbs_command')
+        self.mock_pbs_command = self.patcher.start()
         self.addCleanup(self.patcher.stop)
 
     def test_gets_xml_tree(self):
-        self.mock_sh.pbsnodes.return_value = '<Data></Data>'
+        self.mock_pbs_command.return_value = '<Data></Data>'
         r = pbsstatus.get_pbsnodes_xml()
         self.assertTrue('Data', r.tag)
 
     def test_calls_pbsnodes_correct_with_arguments(self):
-        self.mock_sh.pbsnodes.return_value = '<Data></Data>'
+        self.mock_pbs_command.return_value = '<Data></Data>'
         r = pbsstatus.get_pbsnodes_xml(['foo','bar'])
-        self.mock_sh.pbsnodes.assert_called_once_with('-x foo bar')
-
+        self.mock_pbs_command.assert_called_once_with(
+            'pbsnodes', 'foo', 'bar', x=True
+        )
 
     def test_calls_pbsnodes_correct_with_no_arguments(self):
-        self.mock_sh.pbsnodes.return_value = '<Data></Data>'
+        self.mock_pbs_command.return_value = '<Data></Data>'
         r = pbsstatus.get_pbsnodes_xml()
-        self.mock_sh.pbsnodes.assert_called_once_with('-x')
+        self.mock_pbs_command.assert_called_once_with('pbsnodes', x=True)
 
 class TestClusterStatus(unittest.TestCase):
     def setUp(self):
@@ -33,6 +34,10 @@ class TestClusterStatus(unittest.TestCase):
             'foo': make_node_info(),
             'bar': make_node_info()
         }
+
+    def test_has_no_jobs(self):
+        del self.nodes_info['foo']['jobs']
+        r = pbsstatus.cluster_info(self.nodes_info)
 
     def test_does_load_utilization_gt_1(self):
         self.nodes_info['foo']['status']['ncpus'] = '20'
