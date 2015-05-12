@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from os.path import (
     join, dirname, basename
 )
@@ -16,6 +18,13 @@ PBSHOME = '/var/spool/torque'
 SPOOL_DIR = join(PBSHOME, 'spool')
 # Default protocol ssh or rsh
 PROTOCOL = 'ssh'
+
+OPERATIONS = {
+    'follow': 'tail -f',
+    'head': 'head',
+    'tail': 'tail',
+    'cat': 'cat',
+}
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -60,4 +69,5 @@ def main():
     serr_filepath = base_filepath + '.ER'
     
     protocol_cmd = getattr(sh, args.protocol)
-    protocol_cmd(exechost, args.operation, sout_filepath, serr_filepath)
+    for line in protocol_cmd(exechost, OPERATIONS[args.operation], sout_filepath, serr_filepath, _iter=True):
+        print(line)
