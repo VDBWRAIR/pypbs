@@ -63,11 +63,16 @@ def main():
     args = parse_args()
     xml = qstat.get_qstat_xml(jobs=[args.jobid])
     jobdef = list(pbsxml.parse_xml(xml, 'Job_Id').items())[0][1]
+    if jobdef['job_state'] != 'R':
+        print('Job {0} is not running'.format(args.jobid))
+        return
     exechost = jobdef['exec_host'].split('/')[0]
-    base_filepath = join(args.spooldir,jobdef['Job_Id'])
-    sout_filepath = base_filepath + '.OU'
-    serr_filepath = base_filepath + '.ER'
+    base_filepath = join(args.spooldir,jobdef['Job_Id'] + '.*')
+    #sout_filepath = base_filepath + '.OU'
+    #serr_filepath = base_filepath + '.ER'
     
     protocol_cmd = getattr(sh, args.protocol)
-    for line in protocol_cmd(exechost, OPERATIONS[args.operation], sout_filepath, serr_filepath, _iter=True):
-        print(line)
+    for line in protocol_cmd(
+        exechost, OPERATIONS[args.operation], base_filepath, _iter=True
+    ):
+        sys.stdout.write(line)
